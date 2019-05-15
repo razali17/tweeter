@@ -82,15 +82,25 @@ function renderTweets(tweets) {
 renderTweets(data);
 
 $(function() {
+
+  $('#error1').hide();
+  $('#error2').hide();
+
   $("#tweet-form").submit(function(event) {
     event.preventDefault();
     let formData = $('#tweet-form').serialize();
+    let entry = $('#textarea').val();
+    if (entry === null || entry === ''){
+        $('#error1').show('fast');
+      }else if (entry.length > 140){
+        $('#error2').show('fast');
+      } else {
     $.ajax('/tweets', {
         method: 'POST',
         data: formData,
       })
     return $.ajax('/tweets');
-      }).then(renderTweets);
+      }}).then(renderTweets);
 })
 
 
