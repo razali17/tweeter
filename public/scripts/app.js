@@ -93,14 +93,19 @@ $(function() {
       }).then(renderTweets);
 })
 
-$(function() {
-  var $button = $('#load-more-posts');
-  $button.on('click', function () {
-    console.log('Button clicked, performing ajax call...');
-    $.ajax('more-posts.html', { method: 'GET' })
-    .then(function (morePostsHtml) {
-      console.log('Success: ', morePostsHtml);
-      $button.replaceWith(morePostsHtml);
+
+function loadTweets(){
+  let $submit = $('.new-tweet-text');
+
+    $.ajax('/tweets', { method: 'GET' })
+       .then(function (myJson) {
+         renderTweets(myJson)
+
+      console.log('Success: ', myJson);
+
+      $submit.replaceWith(myJson);
+      renderTweets()
+
     });
-  });
-});
+  }
+  loadTweets()
