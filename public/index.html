@@ -34,14 +34,14 @@
   <main class="container">
     <section class="new-tweet">
       <h2>Compose Tweet</h2>
-      <form class="form-inline" action="/tweets" method="POST">
+      <form id="tweet-form" class="form-inline" action="/tweets" method="POST">
         <textarea name="text" placeholder="What are you humming about?"></textarea>
         <input type="submit" value="Tweet">
         <span class="counter">140</span>
       </form>
     </section>
     <section id="tweet-container" class="tweets-container">
-      <article>
+<!--       <article>
         <header>
           <img class="avatar" scr="/images/bird.png">
           <span class="name">Bill Fields</span>
@@ -54,7 +54,7 @@
           <img class="hiddenIcon" src="/images/heart.png">
           <img class="hiddenIcon" src="/images/flag.png">
         </footer>
-      </article>
+      </article> -->
     </section>
   </main>
 </body>
