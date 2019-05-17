@@ -10,7 +10,11 @@ module.exports = function makeDataHelpers(db) {
     // Saves a tweet to `db`
     saveTweet: function(newTweet, callback) {
       simulateDelay(() => {
-        db.tweets.push(newTweet);
+        db.collection("tweets").insertOne(newTweet, (err, result) => {
+          if (err){
+            console.log("POST had an error");
+          }
+        })
         callback(null, true);
       });
     },
