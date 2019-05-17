@@ -1,61 +1,79 @@
-/*article.tweet {
-    background-color: $bg-light;
-    margin-top: 1em;
-    margin-left: 2em;
-    margin-right: 2em;
-    border-radius: .5em;
-    border-style: solid;
-    border-color: lightgray;
-    border-width: thin;
-    opacity: .7;
-    overflow: hidden;
+.tweet header{
+  height: 80px;
+  background: lightgrey;
+  padding: 1em 1em 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
 
-    h2 {
-        color: $text-dark;
-        margin: 0;
-        vertical-align: top;
-        padding: 0 0 1em .5em;
-        display: inline-block;
-        }
+.tweet header h3{
+  float:left;
+  margin: 0 8px;
+}
 
-    .userHandle {
-        font-weight: 200;
-        color: grey;
-        float: right;
-        vertical-align: top;
-        margin: .25em 0 0 0;
-        opacity: 0.8;
-        }
+.tweet header p{
+  float:right;
+  margin: 0;
+}
 
-    header {
-        background-color: #eee;
-        padding: .5em;
-        }
+.name {
+  padding-left: 0.3em;
+  font-size: 130%;
+  font-weight: bold:
+}
 
-    img {
-        float: left;
-        border-radius: .5em;
-        opacity: 0.8;
-        }
+.userHandle{
+  float: right;
+  font-size: 80%;
+}
 
-    p {
-        padding: 0 1em;
-        font-size: 1.25em;
-        word-break: break-all;
-        }
+.avatar{
+  display: inline-block;
+  float: left;
+  margin-bottom: 1px;
+  padding-bottom: 1px;
+}
 
-    footer {
-        border: thin solid #ddd;
-        padding: .5em;
-        }
+.hiddenIcon{
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  float: right;
+  margin-left:3px;
+  opacity: 0;
+}
 
-    i {
-        float: right;
-        visibility: hidden;
-        padding: 0 .25em;
-    }
+.tweetContent{
+  padding: 1em;
+  word-break: break-word;
+}
 
-    i:hover {
-        opacity: 1;
-    }
-}*/
+.tweet{
+  border: 1px black solid;
+  margin-left: 2em;
+  margin-right: 2em;
+  margin-bottom: 1em;
+  border-radius: 10px;
+}
+
+.content {
+  padding: 1em;
+}
+
+.tweet{
+  opacity: 0.7;
+}
+
+.tweet:hover{
+  opacity: 1;
+}
+
+.tweet:hover .hiddenIcon{
+  opacity: 1;
+}
+
+.tweet footer{
+  border-top: 0.5px black solid;
+  width: 100%;
+  padding: 0.5em 1em;
+}

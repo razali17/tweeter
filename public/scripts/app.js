@@ -6,21 +6,21 @@
 
 $(document).ready(function() {
 
-  $("button.compose").on('click', function() { //toggle for the compose slide
+  $("button.compose").on('click', function() {
     $("section.new-tweet").slideToggle("slow");
     var textInput = document.getElementById("txt");
-    textInput.focus(); //auto select the text field
+    textInput.focus();
   })
 
 
-  function escape(str) { //helper function to present users putting js in the form
+  function escape(str) {
     var div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
   }
 
-  function createTweetElement(tweet) { //helper function
-    const $newTweet= //creates a template for each tweet
+  function createTweetElement(tweet) {
+    const $newTweet=
     `<article class="tweet">
         <header>
           <img class="avatar" src="${tweet.user.avatars.small}" align="bottom">
@@ -41,41 +41,41 @@ $(document).ready(function() {
 
   function renderTweets(arrTweets) {
     $('.tweets-container').empty();
-    arrTweets.forEach(function(tweet) { //calls the other function and loops it through the array of objects
+    arrTweets.forEach(function(tweet) {
       $('.tweets-container').prepend(createTweetElement(tweet));
     });
   }
 
   function loadTweets() {
     $.ajax({
-      url:"/tweets" //the get request with AJAX
+      url:"/tweets"
     })
     .done(data => {
-      renderTweets(data); //calls the function to the data
+      renderTweets(data);
     });
   }
 
   loadTweets();
 
   $('#textarea').on('input', function() {
-        $("div.nullError").slideUp(); //the error slides up on input
+        $("div.nullError").slideUp();
         $("div.longError").slideUp();
   });
 
   $("form").on("submit", function(e) {
-    e.preventDefault(); //stops the button from redirecting
-    var $tweetLen = $('#txt').val().length;
+    e.preventDefault();
+    var $tweetLen = $('#textarea').val().length;
     if ($tweetLen === 0) {
-      $("div.nullError").slideToggle("slow"); //if the text is empty
+      $("div.nullError").slideToggle("slow");
     } else if ($tweetLen > 140) {
       $("div.longError").slideToggle("slow");
     } else {
       $.ajax({
-        url: $(this).attr("action"), //gets the /tweet link
-        type: $(this).attr("method"), //gets the method which is "POST"
-        data: $(this).serialize() //converts the data into urlencoded
+        url: $(this).attr("action"),
+        type: $(this).attr("method"),
+        data: $(this).serialize()
       }).done(function() {
-        $("#textarea").val(""); //clears the textbox after submit
+        $("#textarea").val("");
         loadTweets();
       });
     }
