@@ -8,10 +8,9 @@ $(document).ready(function() {
 
   $("button.compose").on('click', function() {
     $("section.new-tweet").slideToggle("slow");
-    var textInput = document.getElementById("txt");
+    var textInput = document.getElementById("textarea");
     textInput.focus();
   })
-
 
   function escape(str) {
     var div = document.createElement('div');
@@ -66,9 +65,9 @@ $(document).ready(function() {
     e.preventDefault();
     var $tweetLen = $('#textarea').val().length;
     if ($tweetLen === 0) {
-      $("div.nullError").slideToggle("slow");
+      $("div.nullError").slideToggle("fast");
     } else if ($tweetLen > 140) {
-      $("div.longError").slideToggle("slow");
+      $("div.longError").slideToggle("fast");
     } else {
       $.ajax({
         url: $(this).attr("action"),
