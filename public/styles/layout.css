@@ -25,13 +25,138 @@ body {
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
 
+.logo {
+  height: 80px;
+  width: 80px;
+  float: left;
+  }
+
+.name {
+  padding-left: 1em;
+  font-size: 130%;
+  font-weight: bold:
+}
+
+.userHandle{
+  float: right;
+  font-size: 75%;
+}
+
+.avatar{
+  display: inline-block;
+  float: left;
+  margin-bottom: 1px;
+}
+
+.hiddenIcon{
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  float: right;
+  margin-left:3px;
+  opacity: 0;
+}
+
+
+button.compose{
+  height: 50px;
+  width: 90px;
+  float: right;
+  margin-top: 1em;
+  border-radius: 10px;
+  opacity: 0.7;
+}
+
+button.compose:hover{
+  opacity: 1;
+}
+
 main{
   width: 450px;
-  align-content: center;
-  text-align: center;
-  background-color: #ffffff;
-  padding-top: 140px;
   margin-left: auto;
   margin-right: auto;
+  align-content: center;
+  text-align: left;
+  background-color: #ffffff;
+  padding-top: 10px;
+}
 
+.nullError{
+  display: none;
+  width: fit-content;
+  padding-left:5px;
+  padding-right:5px;
+  background-color: yellow;
+  color:red;
+  margin-top: -15px;
+  margin-bottom: 8px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 6px;
+}
+
+.longError{
+  display:none;
+  width:fit-content;
+  padding-left:5px;
+  padding-right:5px;
+  background-color: yellow;
+  color:red;
+  margin-top: -15px;
+  margin-bottom: 8px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 6px;
+}
+
+.tweetContent{
+  padding: 1em;
+  word-break: break-word;
+}
+
+.tweet{
+  border: 1px black solid;
+  margin-left: 2em;
+  margin-right: 2em;
+  margin-bottom: 1em;
+  border-radius: 10px;
+}
+
+
+.tweet footer{
+  border-top: 0.5px black solid;
+  width: 100%;
+  padding: 0.5em 1em;
+}
+
+.tweet header{
+  height: 70px;
+  background: lightgrey;
+  padding: 1em 1em 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.tweet header h3{
+  float:left;
+  margin: 0 8px;
+}
+.tweet header p{
+  float:right;
+  margin: 0;
+}
+
+.content {
+  padding: 1em;
+}
+
+.tweet{
+  opacity: 0.7;
+}
+
+.tweet:hover{
+  opacity: 1;
+}
+
+.tweet:hover .hiddenIcon{
+  opacity: 1;
 }

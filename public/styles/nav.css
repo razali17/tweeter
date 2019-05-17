@@ -7,14 +7,8 @@ nav#nav-bar {
   color: #e8fdff;
 }
 
-#nav-bar img {
-  width: 80px;
-  height: 80px;
-  float: left;
- }
-
-#nav-bar span.header {
-    line-height: 2.5em;
-    font-size: 2em;
-    float: left;
+span.header {
+  line-height: 2.5em;
+  font-size: 2em;
+  float:left;
 }

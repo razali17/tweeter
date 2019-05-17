@@ -3,119 +3,82 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
-const data = [
-  {
-    "user": {
-      "name": "Newton",
-      "avatars": {
-        "small":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
-        "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
-        "large":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
-      },
-      "handle": "@SirIsaac"
-    },
-    "content": {
-      "text": "If I have seen further it is by standing on the shoulders of giants"
-    },
-    "created_at": 1461116232227
-  },
-  {
-    "user": {
-      "name": "Descartes",
-      "avatars": {
-        "small":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_50.png",
-        "regular": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc.png",
-        "large":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_200.png"
-      },
-      "handle": "@rd" },
-    "content": {
-      "text": "Je pense , donc je suis"
-    },
-    "created_at": 1461113959088
-  },
-  {
-    "user": {
-      "name": "Johann von Goethe",
-      "avatars": {
-        "small":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_50.png",
-        "regular": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1.png",
-        "large":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_200.png"
-      },
-      "handle": "@johann49"
-    },
-    "content": {
-      "text": "Es ist nichts schrecklicher als eine tätige Unwissenheit."
-    },
-    "created_at": 1461113796368
+
+$(document).ready(function() {
+
+  $("button.compose").on('click', function() { //toggle for the compose slide
+    $("section.new-tweet").slideToggle("slow");
+    var textInput = document.getElementById("txt");
+    textInput.focus(); //auto select the text field
+  })
+
+
+  function escape(str) { //helper function to present users putting js in the form
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
   }
 
-function createTweetElement(tweet) {
-  let $tweet = $('<article>').addClass('tweet');
-  let $commentHeader = $('<header>').addClass('commentHeader');
-  let $avatar = $('<img>').addClass('avatar').attr("src", tweet.user.avatars.small);
-  let $name = $('<name>').addClass('name').text(tweet.user.name);
-  let $userId = $('<userId>').addClass('userId').text(tweet.user.handle);
-  let $tweetText= $('<div>').addClass('tweetText').text(tweet.content.text);
-  let $timeStamp= $('<span>').addClass('timeStamp').text(tweet.created_at);
-  let $commentFooter = $('<footer>').addClass('commentFooter');
-  let $hiddenFlag = $('<img>').addClass('hiddenIcon').attr("src", "/images/flag.png");
-  let $hiddenHeart = $('<img>').addClass('hiddenIcon').attr("src", "/images/heart.png");
-  let $hiddenReblog = $('<img>').addClass('hiddenIcon').attr("src", "/images/reblog.png");
+  function createTweetElement(tweet) { //helper function
+    const $newTweet= //creates a template for each tweet
+    `<article class="tweet">
+        <header>
+          <img class="avatar" src="${tweet.user.avatars.small}" align="bottom">
+            <span class="name">${tweet.user.name}</span>
+            <h4 class="userHandle">${tweet.user.handle}</h4>
+        </header>
+        <div class="tweetContent">${escape(tweet.content.text)}</div>
+        <footer>${jQuery.timeago(tweet.created_at)}
+          <img class="hiddenIcon" src="/images/heart.png">
+          <img class="hiddenIcon" src="/images/reblog.png">
+          <img class="hiddenIcon" src="/images/flag.png">
+        </footer>
+      </article>
+    `;
 
-  $commentHeader.append($avatar, $name, $userId)
-  $commentFooter.append($timeStamp, $hiddenReblog, $hiddenHeart, $hiddenFlag )
-  $tweet.append($commentHeader, $tweetText, $commentFooter)
-  return $tweet;
-}
-
-function renderTweets(tweets) {
-
-  for (let userData in tweets) {
-
-  let tweet = tweets[userData];
-  let newComment = createTweetElement(tweet)
-
-  $('.tweets-container').prepend(newComment)
+    return $newTweet;
   }
-}
 
-renderTweets(data);
-
-$(function() {
-
-  $('#error1').hide();
-  $('#error2').hide();
-
-  $("#tweet-form").submit(function(event) {
-    event.preventDefault();
-    let formData = $('#tweet-form').serialize();
-    let entry = $('#textarea').val();
-    if (entry === null || entry === ''){
-        $('#error1').show('fast');
-      }else if (entry.length > 140){
-        $('#error2').show('fast');
-      } else {
-    $.ajax('/tweets', {
-        method: 'POST',
-        data: formData,
-      })
-    return $.ajax('/tweets');
-      }}).then(renderTweets);
-})
-
-
-function loadTweets(){
-  let $submit = $('.new-tweet-text');
-
-    $.ajax('/tweets', { method: 'GET' })
-       .then(function (myJson) {
-         renderTweets(myJson)
-
-      console.log('Success: ', myJson);
-
-      $submit.replaceWith(myJson);
-      renderTweets()
-
+  function renderTweets(arrTweets) {
+    $('.tweets-container').empty();
+    arrTweets.forEach(function(tweet) { //calls the other function and loops it through the array of objects
+      $('.tweets-container').prepend(createTweetElement(tweet));
     });
   }
-  loadTweets()
+
+  function loadTweets() {
+    $.ajax({
+      url:"/tweets" //the get request with AJAX
+    })
+    .done(data => {
+      renderTweets(data); //calls the function to the data
+    });
+  }
+
+  loadTweets();
+
+  $('#textarea').on('input', function() {
+        $("div.nullError").slideUp(); //the error slides up on input
+        $("div.longError").slideUp();
+  });
+
+  $("form").on("submit", function(e) {
+    e.preventDefault(); //stops the button from redirecting
+    var $tweetLen = $('#txt').val().length;
+    if ($tweetLen === 0) {
+      $("div.nullError").slideToggle("slow"); //if the text is empty
+    } else if ($tweetLen > 140) {
+      $("div.longError").slideToggle("slow");
+    } else {
+      $.ajax({
+        url: $(this).attr("action"), //gets the /tweet link
+        type: $(this).attr("method"), //gets the method which is "POST"
+        data: $(this).serialize() //converts the data into urlencoded
+      }).done(function() {
+        $("#textarea").val(""); //clears the textbox after submit
+        loadTweets();
+      });
+    }
+  });
+
+});
