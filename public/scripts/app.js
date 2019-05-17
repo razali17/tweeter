@@ -69,6 +69,7 @@ $(document).ready(function() {
     } else if ($tweetLen > 140) {
       $("div.longError").slideToggle("fast");
     } else {
+      $("div.successMessage").slideToggle("fast");
       $.ajax({
         url: $(this).attr("action"),
         type: $(this).attr("method"),
