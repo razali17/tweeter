@@ -27,6 +27,7 @@ h2{
   border-bottom: 1px black solid;
 }
 
+/*Error that is displayed on empty tweet*/
 .nullError{
   display: none;
   border: 1px solid;
@@ -38,6 +39,7 @@ h2{
   border-radius: 6px;
 }
 
+/*Error that is displayed when tweet is too long*/
 .longError{
   display: none;
   border: 1px solid;
@@ -49,6 +51,7 @@ h2{
   border-radius: 6px;
 }
 
+/*Success message that is displayed on successful posting of tweet*/
 .successMessage{
   display: none;
   border: 1px solid;
