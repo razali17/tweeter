@@ -48,3 +48,14 @@ h2{
   background-image: "/images/red-box.png";
   border-radius: 6px;
 }
+
+.successMessage{
+  display: none;
+  border: 1px solid;
+  margin: 10px 0px;
+  padding: 5px 2px 5px 10px;
+  background position: center;
+  background-color: #DFF2BF;
+  background-image: "/images/green-box.png";
+  border-radius: 6px;
+}
