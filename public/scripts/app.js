@@ -5,23 +5,23 @@
  */
 
 $(document).ready(function() {
-  // animation for text input after copose button is clicked
+  /* helper function to prevent cross-site scripting. It takes the user input
+  and escapes unsafe characters*/
+  function escape(str) {
+    let div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
+
+  // animation for text input after compose button is clicked
   $("button.compose").on('click', function() {
     $("section.new-tweet").slideToggle("slow");
     var textInput = document.getElementById("textarea");
     textInput.focus();
   })
 
-  /* helper function to prevent cross-site scripting. It takes the user input
-  and escapes unsafe characters*/
-  function escape(str) {
-    var div = document.createElement('div');
-    div.appendChild(document.createTextNode(str));
-    return div.innerHTML;
-  }
-
 /* Generates an html template for the tweets stored in the database.
-It stores them in the tweets-container section in the index.html file*/
+It stores them in the tweets-container section in the index.html file */
   function createTweetElement(tweet) {
     const $newTweet=
     `<article class="tweet">
@@ -42,9 +42,9 @@ It stores them in the tweets-container section in the index.html file*/
     return $newTweet;
   }
 
-  function renderTweets(arrTweets) {
+  function renderTweets(tweetArray) {
     $('.tweets-container').empty();
-    arrTweets.forEach(function(tweet) {
+    tweetArray.forEach(function(tweet) {
       $('.tweets-container').prepend(createTweetElement(tweet));
     });
   }
@@ -69,24 +69,23 @@ It stores them in the tweets-container section in the index.html file*/
   $("form").on("submit", function(e) {
     e.preventDefault();
     var $tweetLen = $('#textarea').val().length;
-    if ($tweetLen === 0) { //if the input is empty, display an error
+    if ($tweetLen === 0) {//if the input is empty, display an error
       $("div.nullError").slideToggle("fast");
-    } else if ($tweetLen > 140) { //if the tweet is too long, display an error
+    } else if ($tweetLen > 140) {//if the tweet is too long, display an error
       $("div.longError").slideToggle("fast");
     } else {
-      /*post the new tweet and display a successul post message. Also use ajax to
-      refresh tweets displaying newly posted tweet*/
+      //post the new tweet and display a successul post message. Also use ajax to
+      // refresh tweets displaying newly posted tweet
       $("div.successMessage").slideToggle("fast");
       $.ajax({
         url: $(this).attr("action"),
         type: $(this).attr("method"),
         data: $(this).serialize()
-      }).done(function() {     //on successful post, clear the text field and reset the counter
+      }).done(function() {//on successful post, clear the text field and reset the counter
         $("#textarea").val("");
         loadTweets();
         $("#count").html(140)
       });
     }
   });
-
 });

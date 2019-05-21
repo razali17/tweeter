@@ -6,11 +6,14 @@ const PORT          = 8080;
 const express       = require("express");
 const bodyParser    = require("body-parser");
 const app           = express();
+const MongoClient   = require("mongodb").MongoClient;
+const MONGODB_URI   = "mongodb://localhost:27017/tweeter";
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-// The mongo database of tweets
+//creates a global db variable
 let db;
 
 MongoClient.connect(MONGODB_URI, (err, tempDb) => {
@@ -20,7 +23,6 @@ MongoClient.connect(MONGODB_URI, (err, tempDb) => {
   }
   console.log(`Connected to mongodb: ${MONGODB_URI}`);
   db = tempDb;
-
 // The `data-helpers` module provides an interface to the database of tweets.
 // This simple interface layer has a big benefit: we could switch out the
 // actual database it uses and see little to no changes elsewhere in the code
@@ -36,6 +38,8 @@ const tweetsRoutes = require("./routes/tweets")(DataHelpers);
 
 // Mount the tweets routes at the "/tweets" path prefix:
 app.use("/tweets", tweetsRoutes);
+
+});
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
