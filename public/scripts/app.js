@@ -65,7 +65,7 @@ It stores them in the tweets-container section in the index.html file */
         $("div.longError").slideUp();
   });
 
-  //decision tree after user submits a new tweet
+  //decision tree after user submits a new tweet.
   $("form").on("submit", function(e) {
     e.preventDefault();
     var $tweetLen = $('#textarea').val().length;
